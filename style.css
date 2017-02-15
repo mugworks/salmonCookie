@@ -5,3 +5,17 @@ body {
 h1 {
     font-size: 100px
 }
+
+table {
+    width: 90%
+}
+
+th {
+    height: 30px
+}
+
+table , th, td {
+    margin: 30px;
+    border: 1px solid black;
+    text-align: center
+}
