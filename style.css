@@ -12,7 +12,7 @@ table {
 }
 
 th {
-    height: 30px
+    height: 30px;
 }
 
 table , th, td {
@@ -22,13 +22,52 @@ table , th, td {
 }
 
 tr:nth-child(even) {
-    background-color: ghostwhite
+    background-color: ghostwhite;
 }
 
 tr:nth-child(odd) {
-    background-color:  mediumpurple
+    background-color:  mediumpurple;
 }
 
 tr:hover {
-    background-color: greenyellow
+    background-color: greenyellow;
+}
+
+input[type="text"] {
+    width: 140px;
+    padding: 5px;
+    border: 1px solid blue;
+    margin: 15px;
+    font-size: 20px;
+}
+
+input[type="text"]:focus{
+    background-color: lightblue;
+}
+
+input[type="submit"] {
+    border: 1px solid black;
+    background-color: #AA0;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    width: 100px;
+    height: 60px;
+    font-size: 25px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: inline;
+    float: left;
+}
+
+li a {
+    font-size: 25px;
+    padding: 20px;
+    margin-bottom: 30px;
+    float: right;
 }
