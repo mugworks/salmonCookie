@@ -84,7 +84,10 @@ function submitHandler(event) {
   var newMinCust = parseInt(event.target.minCust.value);
   var newMaxCust = parseInt(event.target.maxCust.value);
   var newCookieAve = parseInt(event.target.cookieAvg.value);
-  checkForNumber(newMinCust, newMaxCust, newCookieAve);
+  if (checkForNumber(newMinCust, newMaxCust, newCookieAve) === false) {
+    return;
+  }
+  //checkForMinMax(min, max);
   var newStore = new Store(newStoreName, newMinCust, newMaxCust, newCookieAve);
   allStores.push.newStore;
   newStore.renderTableBody();
@@ -94,13 +97,11 @@ function submitHandler(event) {
 function checkForNumber(min, max, avg) {
   if ((isNaN(min)) || (isNaN(max)) || (isNaN(avg))) {
     alert('You have entered a value that is not a number!');
-  } else {
-    checkForMinMax(min, max);
-  }
-}
-
-function checkForMinMax(min, max) {
-  if (min > max) {
+    return false;
+  } else if (min > max) {
     alert('Your minimum value is greater than your maximum value');
+    return false;
   }
-}
+};
+
+//renderTableFoot();
