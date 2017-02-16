@@ -1,5 +1,7 @@
 'use strict';
 
+var allStores = [];
+
 function Store(name, minCustomers, maxCustomers, cookieAvgPerCust) {
   this.name = name;
   this.minCustomers = minCustomers;
@@ -49,21 +51,57 @@ function renderTableFoot() {
   var storeFootHeader = document.createElement('th');
   storeFootRow.appendChild(storeFootHeader);
   storeFootHeader.textContent = 'Totals';
+  for (var i = 0; i < allStores.length; i++) {
+    var totalSumCookies = document.createElement('td');
+    storeFootRow.appendChild(totalSumCookies);
+  }
 };
 
 
 renderTableHead();
 
+
+//creating the store objects and creating arrays of store rows
 var pikeStore = new Store('1st and Pike', 23, 65, 6.3);
+//allStores.push.pikeStore;
 pikeStore.renderTableBody();
 var seaTacStore = new Store('SeaTac Airport', 3, 24, 1.2);
+allStores.push.seaTacStore;
 seaTacStore.renderTableBody();
 var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+allStores.push.seattleCenter;
 seattleCenter.renderTableBody();
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
+allStores.push.capitolHill;
 capitolHill.renderTableBody();
 var alki = new Store('Alki', 2, 16, 4.6);
+allStores.push.alki;
 alki.renderTableBody();
 
-renderTableFoot();
+var clickBtn = document.getElementById('stores-and-cookies');
+clickBtn.addEventListener('submit', submitHandler);
+function submitHandler(event) {
+  event.preventDefault();
+  console.log(event.target.storeName.value, event.target.minCust.value, event.target.maxCust.value, event.target.cookieAvg.value);
+  var newStoreName = event.target.storeName.value;
+  var newMinCust = parseInt(event.target.minCust.value);
+  var newMaxCust = parseInt(event.target.maxCust.value);
+  var newCookieAve = parseInt(event.target.cookieAvg.value);
+  if (checkForNumber(newMinCust, newMaxCust, newCookieAve) === false) {
+    return;
+  }
+  var newStore = new Store(newStoreName, newMinCust, newMaxCust, newCookieAve);
+  allStores.push.newStore;
+  newStore.renderTableBody();
 
+  renderTableFoot();
+};
+function checkForNumber(min, max, avg) {
+  if ((isNaN(min)) || (isNaN(max)) || (isNaN(avg))) {
+    alert('You have entered a value that is not a number!');
+    return false;
+  } else if (min > max) {
+    alert('Your minimum value is greater than your maximum value');
+    return false;
+  }
+};
