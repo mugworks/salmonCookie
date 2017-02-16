@@ -51,15 +51,19 @@ function renderTableFoot() {
   var storeFootHeader = document.createElement('th');
   storeFootRow.appendChild(storeFootHeader);
   storeFootHeader.textContent = 'Totals';
+  for (var i = 0; i < allStores.length; i++) {
+    var totalSumCookies = document.createElement('td');
+    storeFootRow.appendChild(totalSumCookies);
+  }
 };
 
 
 renderTableHead();
 
 
-
+//creating the store objects and creating arrays of store rows
 var pikeStore = new Store('1st and Pike', 23, 65, 6.3);
-allStores.push.pikeStore;
+//allStores.push.pikeStore;
 pikeStore.renderTableBody();
 var seaTacStore = new Store('SeaTac Airport', 3, 24, 1.2);
 allStores.push.seaTacStore;
@@ -79,7 +83,6 @@ clickBtn.addEventListener('submit', submitHandler);
 function submitHandler(event) {
   event.preventDefault();
   console.log(event.target.storeName.value, event.target.minCust.value, event.target.maxCust.value, event.target.cookieAvg.value);
-  //var newStore = new Store(event.target.storeName.value, event.target.minCust.value, event.target.maxCust.value, event.target.cookieAvg.value);
   var newStoreName = event.target.storeName.value;
   var newMinCust = parseInt(event.target.minCust.value);
   var newMaxCust = parseInt(event.target.maxCust.value);
@@ -87,7 +90,6 @@ function submitHandler(event) {
   if (checkForNumber(newMinCust, newMaxCust, newCookieAve) === false) {
     return;
   }
-  //checkForMinMax(min, max);
   var newStore = new Store(newStoreName, newMinCust, newMaxCust, newCookieAve);
   allStores.push.newStore;
   newStore.renderTableBody();
@@ -103,5 +105,3 @@ function checkForNumber(min, max, avg) {
     return false;
   }
 };
-
-//renderTableFoot();
