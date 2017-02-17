@@ -1,6 +1,5 @@
 'use strict';
 
-var totalStoreArray = [];
 var storeHoursArray = ['6am', '7am', '8am', '9am', '10am', '11am',
   '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 
@@ -31,22 +30,12 @@ function renderTableHead() {
     headerTH.textContent = storeHoursArray[i];
     storeHeaderRow.appendChild(headerTH);
   }
-}
+  headerTH = document.createElement('th');
+  headerTH.textContent = 'Total';
+  storeHeaderRow.appendChild(headerTH);
+};
 
 
-// Store.prototype.renderTableBody = function() {
-//   var storeTable = document.getElementById('cookies-by-location');
-//   var storeBodyRow = document.createElement('tr');
-//   storeTable.appendChild(storeBodyRow);
-//   var bodyRowHeader = document.createElement('th');
-//   storeBodyRow.appendChild(bodyRowHeader);
-//   bodyRowHeader.textContent = this.name;
-//   for (var i = 0; i < storeHoursArray.length; i++) {
-//     var listCookiesByHour = document.createElement('td');
-//     listCookiesByHour.textContent = this.numCookiesPerHour();
-//     storeBodyRow.appendChild(listCookiesByHour);
-//   };
-//};
 
 Store.prototype.renderTableBody = function() {
   var storeTable = document.getElementById('cookies-by-location');
@@ -72,11 +61,15 @@ function renderTableFoot() {
   storeFootRow.appendChild(storeFootHeader);
   storeFootHeader.textContent = 'Totals';
   for (var i = 0; i < storeHoursArray.length; i++) {
+    var totArray = 0;
     var totalSumCookies = document.createElement('td');
+    for (var j = 0; j < storeArray.length; j++) {
+      totArray = totArray + parseInt(storeArray[j].hourlyData[i]);
+    }
     storeFootRow.appendChild(totalSumCookies);
-  }
+    totalSumCookies.textContent = totArray;
+  };
 };
-
 
 renderTableHead();
 
@@ -106,17 +99,20 @@ function submitHandler(event) {
   }
   var newStore = new Store(newStoreName, newMinCust, newMaxCust, newCookieAve);
   storeArray.push(newStore);
-  
+
+
   for (var i = 0; i < storeArray.length; i++) {
     storeArray[i].renderTableBody();
-   }
-  var totArray = 0;
-  for (i = 0; i < storeArray.length; i++) {
-    totArray = totArray + parseInt(storeArray[i].hourlyData[0]);
   }
-  console.log(totArray);
+  // var totArray = 0;
+  // for (i = 0; i < storeArray.length; i++) {
+  //   totArray = totArray + parseInt(storeArray[i].hourlyData[0]);
+  // }
+  // console.log(totArray);
   renderTableFoot();
 };
+
+//check to make sure that the values for minCustomers, maxCustomers and cookieAverage are numbers and that the minimum number is smaller than the maximum
 function checkForNumber(min, max, avg) {
   if ((isNaN(min)) || (isNaN(max)) || (isNaN(avg))) {
     alert('You have entered a value that is not a number!');
