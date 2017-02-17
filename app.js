@@ -44,12 +44,17 @@ Store.prototype.renderTableBody = function() {
   var bodyRowHeader = document.createElement('th');
   storeBodyRow.appendChild(bodyRowHeader);
   bodyRowHeader.textContent = this.name;
+  var totCookies = 0;
   for (var i = 0; i < storeHoursArray.length; i++) {
     var listCookiesByHour = document.createElement('td');
     listCookiesByHour.textContent = this.numCookiesPerHour();
     storeBodyRow.appendChild(listCookiesByHour);
     this.hourlyData.push(listCookiesByHour.textContent);
+    totCookies += parseInt(this.hourlyData[i]);
   };
+  var totalCookiesByLoc = document.createElement('td');
+  storeBodyRow.appendChild(totalCookiesByLoc);
+  totalCookiesByLoc.textContent = totCookies;
 };
 
 
@@ -60,20 +65,21 @@ function renderTableFoot() {
   var storeFootHeader = document.createElement('th');
   storeFootRow.appendChild(storeFootHeader);
   storeFootHeader.textContent = 'Totals';
+  var totCookiesOverall = 0;
   for (var i = 0; i < storeHoursArray.length; i++) {
     var totArray = 0;
     var totalSumCookies = document.createElement('td');
     for (var j = 0; j < storeArray.length; j++) {
       totArray = totArray + parseInt(storeArray[j].hourlyData[i]);
     }
+    totCookiesOverall = totCookiesOverall + parseInt(totArray);
     storeFootRow.appendChild(totalSumCookies);
     totalSumCookies.textContent = totArray;
   };
+  var totSum = document.createElement('td');
+  storeFootRow.appendChild(totSum);
+  totSum.textContent = totCookiesOverall;
 };
-
-renderTableHead();
-
-
 
 
 //creating the store objects and creating arrays of store rows
@@ -101,16 +107,13 @@ function submitHandler(event) {
   storeArray.push(newStore);
 
 
+  renderTableHead();
   for (var i = 0; i < storeArray.length; i++) {
     storeArray[i].renderTableBody();
   }
-  // var totArray = 0;
-  // for (i = 0; i < storeArray.length; i++) {
-  //   totArray = totArray + parseInt(storeArray[i].hourlyData[0]);
-  // }
-  // console.log(totArray);
   renderTableFoot();
 };
+
 
 //check to make sure that the values for minCustomers, maxCustomers and cookieAverage are numbers and that the minimum number is smaller than the maximum
 function checkForNumber(min, max, avg) {
