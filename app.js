@@ -61,11 +61,9 @@ Store.prototype.renderTableBody = function() {
     storeBodyRow.appendChild(listCookiesByHour);
     this.hourlyData.push(listCookiesByHour.textContent);
   };
-
-  console.log(this.hourlyData[0]);
 };
 
- 
+
 function renderTableFoot() {
   var storeTable = document.getElementById('cookies-by-location');
   var storeFootRow = document.createElement('tr');
@@ -87,46 +85,36 @@ renderTableHead();
 
 //creating the store objects and creating arrays of store rows
 var pikeStore = new Store('1st and Pike', 23, 65, 6.3);
-//pikeStore.renderTableBody();
 var seaTacStore = new Store('SeaTac Airport', 3, 24, 1.2);
-//allStores.push.seaTacStore;
-//seaTacStore.renderTableBody();
 var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
-//allStores.push.seattleCenter;
-//seattleCenter.renderTableBody();
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
-//allStores.push.capitolHill;
-//capitolHill.renderTableBody();
 var alki = new Store('Alki', 2, 16, 4.6);
-//allStores.push.alki;
 
 var storeArray = [pikeStore, seaTacStore, seattleCenter, capitolHill, alki];
 
-//alki.renderTableBody();
-
+//user fills out form and hits the submit button
 var clickBtn = document.getElementById('stores-and-cookies');
 clickBtn.addEventListener('submit', submitHandler);
 function submitHandler(event) {
   event.preventDefault();
-  //console.log(event.target.storeName.value, event.target.minCust.value, event.target.maxCust.value, event.target.cookieAvg.value);
   var newStoreName = event.target.storeName.value;
   var newMinCust = parseInt(event.target.minCust.value);
-  //console.log(newMinCust);
   var newMaxCust = parseInt(event.target.maxCust.value);
-  //console.log(newMaxCust);
   var newCookieAve = parseInt(event.target.cookieAvg.value);
   if (checkForNumber(newMinCust, newMaxCust, newCookieAve) === false) {
     return;
   }
   var newStore = new Store(newStoreName, newMinCust, newMaxCust, newCookieAve);
   storeArray.push(newStore);
-  //newStore.renderTableBody();
-
+  
   for (var i = 0; i < storeArray.length; i++) {
     storeArray[i].renderTableBody();
-    //console.log(storeArray[0]);
+   }
+  var totArray = 0;
+  for (i = 0; i < storeArray.length; i++) {
+    totArray = totArray + parseInt(storeArray[i].hourlyData[0]);
   }
-
+  console.log(totArray);
   renderTableFoot();
 };
 function checkForNumber(min, max, avg) {
