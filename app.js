@@ -3,7 +3,6 @@
 var storeHoursArray = ['6am', '7am', '8am', '9am', '10am', '11am',
   '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 
-
 function Store(name, minCustomers, maxCustomers, cookieAvgPerCust) {
   this.name = name;
   this.minCustomers = minCustomers;
@@ -12,9 +11,11 @@ function Store(name, minCustomers, maxCustomers, cookieAvgPerCust) {
   this.hourlyData = [];
 };
 
+
 Store.prototype.numCookiesPerHour = function() {
   return Math.floor((Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers + 1) * this.cookieAvgPerCust);
 };
+
 
 
 
@@ -61,22 +62,29 @@ Store.prototype.renderTableBody = function() {
 function renderTableFoot() {
   var storeTable = document.getElementById('cookies-by-location');
   var storeFootRow = document.createElement('tr');
-  storeTable.appendChild(storeFootRow);
   var storeFootHeader = document.createElement('th');
+  var totSum = document.createElement('td');
+  var totCookiesOverall = 0;
+  var totalSumCookies;
+  var totArray;
+
+  storeTable.appendChild(storeFootRow);
   storeFootRow.appendChild(storeFootHeader);
   storeFootHeader.textContent = 'Totals';
-  var totCookiesOverall = 0;
+
   for (var i = 0; i < storeHoursArray.length; i++) {
-    var totArray = 0;
-    var totalSumCookies = document.createElement('td');
+    totArray = 0;
+    totalSumCookies = document.createElement('td');
+
     for (var j = 0; j < storeArray.length; j++) {
       totArray = totArray + parseInt(storeArray[j].hourlyData[i]);
     }
+
     totCookiesOverall = totCookiesOverall + parseInt(totArray);
     storeFootRow.appendChild(totalSumCookies);
     totalSumCookies.textContent = totArray;
-  };
-  var totSum = document.createElement('td');
+  }
+
   storeFootRow.appendChild(totSum);
   totSum.textContent = totCookiesOverall;
 };
@@ -90,6 +98,13 @@ var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
 var storeArray = [pikeStore, seaTacStore, seattleCenter, capitolHill, alki];
+//Initiate table
+renderTableHead();
+for (var i = 0; i < storeArray.length; i++) {
+  storeArray[i].renderTableBody();
+}
+renderTableFoot();
+
 
 //user fills out form and hits the submit button
 var clickBtn = document.getElementById('stores-and-cookies');
@@ -107,21 +122,22 @@ function submitHandler(event) {
   storeArray.push(newStore);
 
 
-  renderTableHead();
-  for (var i = 0; i < storeArray.length; i++) {
-    storeArray[i].renderTableBody();
-  }
-  renderTableFoot();
-};
+//   renderTableHead();
+//   for (var i = 0; i < storeArray.length; i++) {
+//     storeArray[i].renderTableBody();
+//   }
+//   renderTableFoot();
+// };
 
 
 //check to make sure that the values for minCustomers, maxCustomers and cookieAverage are numbers and that the minimum number is smaller than the maximum
-function checkForNumber(min, max, avg) {
-  if ((isNaN(min)) || (isNaN(max)) || (isNaN(avg))) {
-    alert('You have entered a value that is not a number!');
-    return false;
-  } else if (min > max) {
-    alert('Your minimum value is greater than your maximum value');
-    return false;
+  function checkForNumber(min, max, avg) {
+    if ((isNaN(min)) || (isNaN(max)) || (isNaN(avg))) {
+      alert('You have entered a value that is not a number!');
+      return false;
+    } else if (min > max) {
+      alert('Your minimum value is greater than your maximum value');
+      return false;
+    }
   }
-};
+}
