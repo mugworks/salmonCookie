@@ -61,6 +61,7 @@ Store.prototype.renderTableBody = function() {
 
 function renderTableFoot() {
   var storeTable = document.getElementById('cookies-by-location');
+  var storeTableFooter = document.createElement('tfoot');
   var storeFootRow = document.createElement('tr');
   var storeFootHeader = document.createElement('th');
   var totSum = document.createElement('td');
@@ -68,7 +69,8 @@ function renderTableFoot() {
   var totalSumCookies;
   var totArray;
 
-  storeTable.appendChild(storeFootRow);
+  storeTable.appendChild(storeTableFooter);
+  storeTableFooter.appendChild(storeFootRow);
   storeFootRow.appendChild(storeFootHeader);
   storeFootHeader.textContent = 'Totals';
 
@@ -122,22 +124,24 @@ function submitHandler(event) {
   storeArray.push(newStore);
 
 
-//   renderTableHead();
-//   for (var i = 0; i < storeArray.length; i++) {
-//     storeArray[i].renderTableBody();
-//   }
-//   renderTableFoot();
-// };
+  storeArray[storeArray.length - 1].renderTableBody();
+  removeTableFoot(); //clear out the totals row
+  renderTableFoot();
+};
 
 
 //check to make sure that the values for minCustomers, maxCustomers and cookieAverage are numbers and that the minimum number is smaller than the maximum
-  function checkForNumber(min, max, avg) {
-    if ((isNaN(min)) || (isNaN(max)) || (isNaN(avg))) {
-      alert('You have entered a value that is not a number!');
-      return false;
-    } else if (min > max) {
-      alert('Your minimum value is greater than your maximum value');
-      return false;
-    }
+function checkForNumber(min, max, avg) {
+  if ((isNaN(min)) || (isNaN(max)) || (isNaN(avg))) {
+    alert('You have entered a value that is not a number!');
+    return false;
+  } else if (min > max) {
+    alert('Your minimum value is greater than your maximum value');
+    return false;
   }
-}
+};
+
+function removeTableFoot() {
+  var storeTable = document.getElementById('cookies-by-location');
+  storeTable.deleteTFoot();
+};
