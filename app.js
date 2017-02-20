@@ -127,6 +127,7 @@ function submitHandler(event) {
   storeArray[storeArray.length - 1].renderTableBody();
   removeTableFoot(); //clear out the totals row
   renderTableFoot();
+  clickBtn.reset(); //clears the text boxes in the form
 };
 
 
