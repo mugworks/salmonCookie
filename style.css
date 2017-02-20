@@ -160,7 +160,7 @@ li {
 .column1, .column2, .column3, .column4, .column5 {
     width: 17%;
     float: left;
-    margin: 0px; 20px;
+    margin: 0px, 20px;
 }
 
 h2 {
