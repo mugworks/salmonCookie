@@ -32,7 +32,7 @@ function renderTableHead() {
     storeHeaderRow.appendChild(headerTH);
   }
   headerTH = document.createElement('th');
-  headerTH.textContent = 'Total';
+  headerTH.textContent = 'TOTAL';
   storeHeaderRow.appendChild(headerTH);
 };
 
@@ -72,7 +72,7 @@ function renderTableFoot() {
   storeTable.appendChild(storeTableFooter);
   storeTableFooter.appendChild(storeFootRow);
   storeFootRow.appendChild(storeFootHeader);
-  storeFootHeader.textContent = 'Totals';
+  storeFootHeader.textContent = 'TOTALS';
 
   for (var i = 0; i < storeHoursArray.length; i++) {
     totArray = 0;
@@ -145,3 +145,4 @@ function removeTableFoot() {
   var storeTable = document.getElementById('cookies-by-location');
   storeTable.deleteTFoot();
 };
+
