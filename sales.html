@@ -7,31 +7,28 @@
 </head>
 
 <body>
-  <h2>Number of Cookies by Location and Hours</h2>
-  <nav>
-    <ul>
+  <nav class="clearfix">
+    <h1>Sales Info</h1>
+    <ul id="navigation">
       <li><a href="index.html">Home</a></li>
+      <li><a href="merchandise.html">Merchandise</a></li>
+      <li><a href="aboutUs.html">About Us</a></li>
+      <li>Sales Info</li>
     </ul>
   </nav>
+  <h2>Number of cookies by hour and location</h2>
   <table id="cookies-by-location">
   </table>
   <nav>
     <form id="stores-and-cookies">
-       <div>
+      <fieldset id="infoAdd">
+        <legend>Add New Store Information</legend>
           <input type="text" name="storeName" placeholder="Name of Store"/>
-        </div>
-        <div>
           <input type="text" name="minCust" placeholder="# Customers (min)">
-        </div>
-        <div>
           <input type="text" name="maxCust" placeholder="# Customers (max)">
-        </div>
-        <div>
           <input type="text" name="cookieAvg" placeholder="Cookies per Customer (avg)">
-        </div>
-        <div>
           <input type="submit" name="clickBtn">
-        </div>
+        </fieldset>
     </form>
   </nav>
   
